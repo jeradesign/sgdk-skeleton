@@ -1,7 +1,7 @@
 #include <genesis.h>
 #include "resources.h"
 
-int main() {
+int main(bool hardreset) {
 	VDP_drawText("Hello World!", 4, 4);
 	// Fromt he moon example
 	PAL_setPalette(PAL1, moon.palette->data, DMA);

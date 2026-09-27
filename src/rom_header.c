@@ -1,15 +1,18 @@
-#include "genesis.h"
+#include <genesis.h>
 
+// ROM header text fields are fixed-width and not NUL-terminated by design
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunterminated-string-initialization"
 __attribute__((externally_visible))
 const ROMHeader rom_header = {
-#if (ENABLE_BANK_SWITCH != 0)
-    "SEGA SSF        ",
-#elif (MODULE_MEGAWIFI != 0)
+#if (MODULE_MEGAWIFI  && (MEGAWIFI_IMPLEMENTATION == MEGAWIFI_IMPLEMENTATION_MW_CART))
     "SEGA MEGAWIFI   ",
+#elif (ENABLE_BANK_SWITCH != 0)
+    "SEGA SSF        ",
 #else
     "SEGA MEGA DRIVE ",
 #endif
-    "(C)SGDK 2023    ",
+    "(C)SGDK 2024    ",
     "SAMPLE PROGRAM                                  ",
     "SAMPLE PROGRAM                                  ",
     "GM 00000000-00",
@@ -31,3 +34,4 @@ const ROMHeader rom_header = {
     "DEMONSTRATION PROGRAM                   ",
     "JUE             "
 };
+#pragma GCC diagnostic pop
